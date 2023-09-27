@@ -20,7 +20,7 @@
     <maven.compiler.release>11</maven.compiler.release>
     <version.compiler.plugin>3.8.1</version.compiler.plugin>
     <version.failsafe.plugin>3.0.0-M7</version.failsafe.plugin>
-    <sonataFlowDeploymentWebapp.version>0.0.16</sonataFlowDeploymentWebapp.version>
+    <sonataFlowDeploymentWebapp.version>0.31.0</sonataFlowDeploymentWebapp.version>
   </properties>
 
   <dependencyManagement>
@@ -42,6 +42,14 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-addons-quarkus-data-index-inmemory</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.kie.kogito</groupId>
+      <artifactId>kogito-addons-quarkus-jobs-service-embedded</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.kie.kogito</groupId>
       <artifactId>kogito-quarkus-serverless-workflow</artifactId>
@@ -90,7 +98,7 @@
     </dependency>
     <dependency>
         <groupId>org.webjars.npm</groupId>
-        <artifactId>serverless-logic-web-tools-swf-deployment-webapp2</artifactId>
+        <artifactId>sonataflow-deployment-webapp</artifactId>
         <version>${sonataFlowDeploymentWebapp.version}</version>
     </dependency>
   </dependencies>
@@ -112,6 +120,7 @@
           <execution>
             <goals>
               <goal>build</goal>
+              <goal>generate-code</goal>
             </goals>
           </execution>
         </executions>
@@ -139,7 +148,7 @@
           <artifactId>maven-dependency-plugin</artifactId>
           <executions>
               <execution>
-            <id>unpack-serverless-logic-web-tools-swf-deployment-webapp2</id>
+            <id>unpack-sonataflow-deployment-webapp</id>
                   <phase>process-resources</phase>
                   <goals>
                       <goal>unpack</goal>
@@ -148,9 +157,9 @@
                       <artifactItems>
                           <artifactItem>
                               <groupId>org.webjars.npm</groupId>
-                  <artifactId>serverless-logic-web-tools-swf-deployment-webapp2</artifactId>
+                  <artifactId>sonataflow-deployment-webapp</artifactId>
                               <version>${sonataFlowDeploymentWebapp.version}</version>
-                  <outputDirectory>${project.build.directory}/serverless-logic-web-tools-swf-deployment-webapp2</outputDirectory>
+                  <outputDirectory>${project.build.directory}/sonataflow-deployment-webapp</outputDirectory>
                           </artifactItem>
                       </artifactItems>
                       <overWriteReleases>false</overWriteReleases>
@@ -163,7 +172,7 @@
           <artifactId>maven-resources-plugin</artifactId>
           <executions>
               <execution>
-            <id>copy-serverless-logic-web-tools-swf-deployment-webapp2-resources</id>
+            <id>copy-sonataflow-deployment-webapp-resources</id>
                   <phase>process-resources</phase>
                   <goals>
                       <goal>copy-resources</goal>
@@ -173,7 +182,7 @@
                       <overwrite>true</overwrite>
                       <resources>
                           <resource>
-                  <directory>${project.build.directory}/serverless-logic-web-tools-swf-deployment-webapp2/META-INF/resources/webjars/serverless-logic-web-tools-swf-deployment-webapp2/${sonataFlowDeploymentWebapp.version}/dist</directory>
+                  <directory>${project.build.directory}/sonataflow-deployment-webapp/META-INF/resources/webjars/sonataflow-deployment-webapp/${sonataFlowDeploymentWebapp.version}/dist</directory>
                                 <includes>**/*</includes>
                           </resource>
                       </resources>
